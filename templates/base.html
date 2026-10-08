@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    {% block title %}
+      Transaction Risk Analyzer
+    {% endblock %}
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}"
+  >
+
+  {% block head %}{% endblock %}
+</head>
+
+
+<body>
+
+  <!-- =====================================================
+       CABEÇALHO
+       ===================================================== -->
+
+  <header class="topo">
+
+    <div class="marca">
+      <h1>Transaction Risk Analyzer</h1>
+
+      <p>
+        Plataforma de análise de risco para transações de e-commerce
+      </p>
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       CONTEÚDO PRINCIPAL
+       ===================================================== -->
+
+  <main class="container">
+
+    {% block content %}{% endblock %}
+
+  </main>
+
+
+  <!-- =====================================================
+       SCRIPTS
+       ===================================================== -->
+
+  <script
+    src="https://cdn.socket.io/4.7.5/socket.io.min.js"
+  ></script>
+
+  <script
+    type="module"
+    src="{{ url_for('static', filename='js/main.js') }}"
+  ></script>
+
+  {% block scripts %}{% endblock %}
+
+</body>
+
+</html>

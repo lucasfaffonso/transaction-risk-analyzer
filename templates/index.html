@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  Transaction Risk Analyzer
+{% endblock %}
+
+
+{% block content %}
+
+  <!-- AUTENTICAÇÃO -->
+
+  {% include "auth/login.html" %}
+
+  {% include "auth/cadastro.html" %}
+
+
+  <!-- APLICAÇÃO -->
+
+  <section
+    id="aplicacao"
+    class="aplicacao oculto"
+  >
+
+    <header class="painel-topo">
+
+      <div>
+        <h2 id="titulo_usuario"></h2>
+        <p id="tipo_usuario"></p>
+      </div>
+
+      <button
+        type="button"
+        id="botao_sair"
+        class="botao-sair"
+      >
+        Sair
+      </button>
+
+    </header>
+
+
+    <!-- PAINÉIS -->
+
+    {% include "lojista/painel.html" %}
+
+    {% include "admin/painel.html" %}
+
+  </section>
+
+
+  <!-- COMPONENTES GLOBAIS -->
+
+  {% include "components/modal_detalhes.html" %}
+
+{% endblock %}

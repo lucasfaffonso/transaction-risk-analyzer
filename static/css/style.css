@@ -1,0 +1,1183 @@
+/* =========================================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --fundo: #f5f5f5;
+  --superficie: #ffffff;
+  --superficie-secundaria: #f8f8f8;
+
+  --texto: #1f1f1f;
+  --texto-secundario: #666666;
+  --texto-claro: #8a8a8a;
+
+  --borda: #dddddd;
+  --borda-forte: #c8c8c8;
+
+  --preto: #1f1f1f;
+  --cinza-escuro: #444444;
+  --cinza: #737373;
+  --cinza-claro: #eeeeee;
+
+  --sucesso: #287a43;
+  --sucesso-fundo: #edf8f0;
+
+  --alerta: #9a6a00;
+  --alerta-fundo: #fff8df;
+
+  --perigo: #a23535;
+  --perigo-fundo: #fff0f0;
+
+  --info: #365d87;
+  --info-fundo: #edf4fb;
+
+  --raio: 10px;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+  --transicao: 0.2s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--fundo);
+  color: var(--texto);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select {
+  width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.oculto {
+  display: none !important;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.topo {
+  background: var(--preto);
+  color: #ffffff;
+  border-bottom: 1px solid #333333;
+}
+
+.marca {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.marca h1 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.marca p {
+  margin-top: 4px;
+  color: #c7c7c7;
+  font-size: 0.92rem;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+  width: min(1200px, calc(100% - 32px));
+  margin: 32px auto;
+}
+
+
+/* =========================================================
+   AUTENTICAÇÃO
+   ========================================================= */
+
+.auth-card {
+  width: min(480px, 100%);
+  margin: 50px auto;
+  padding: 30px;
+
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.cadastro-card {
+  width: min(720px, 100%);
+}
+
+.auth-cabecalho {
+  margin-bottom: 24px;
+}
+
+.auth-cabecalho h2 {
+  font-size: 1.45rem;
+}
+
+.auth-cabecalho p {
+  margin-top: 5px;
+  color: var(--texto-secundario);
+}
+
+
+/* =========================================================
+   FORMULÁRIOS
+   ========================================================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin-bottom: 18px;
+}
+
+.form-grid .campo {
+  margin-bottom: 0;
+}
+
+.campo-largo {
+  grid-column: 1 / -1;
+}
+
+.form-botao-largo {
+  grid-column: 1 / -1;
+}
+
+.campo label,
+.campo-filtro label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+input,
+select {
+  height: 43px;
+  padding: 0 12px;
+
+  color: var(--texto);
+  background: #ffffff;
+
+  border: 1px solid var(--borda-forte);
+  border-radius: 7px;
+
+  outline: none;
+
+  transition:
+    border-color var(--transicao),
+    box-shadow var(--transicao);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--cinza-escuro);
+  box-shadow: 0 0 0 3px rgba(30, 30, 30, 0.08);
+}
+
+input::placeholder {
+  color: #a0a0a0;
+}
+
+.erro-input {
+  border-color: var(--perigo) !important;
+}
+
+.erro-input:focus {
+  box-shadow: 0 0 0 3px rgba(162, 53, 53, 0.1);
+}
+
+.erro {
+  min-height: 17px;
+  color: var(--perigo);
+  font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.botao-principal {
+  min-height: 43px;
+  padding: 10px 18px;
+
+  color: #ffffff;
+  background: var(--preto);
+
+  border: 1px solid var(--preto);
+  border-radius: 7px;
+
+  font-weight: 600;
+
+  transition:
+    background var(--transicao),
+    opacity var(--transicao),
+    transform var(--transicao);
+}
+
+.botao-principal:hover {
+  background: #333333;
+}
+
+.botao-principal:active {
+  transform: translateY(1px);
+}
+
+.botao-principal:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.botao-sair {
+  padding: 9px 16px;
+
+  color: var(--texto);
+  background: #ffffff;
+
+  border: 1px solid var(--borda-forte);
+  border-radius: 7px;
+
+  font-weight: 600;
+}
+
+.botao-sair:hover {
+  background: var(--cinza-claro);
+}
+
+
+/* =========================================================
+   TROCA LOGIN / CADASTRO
+   ========================================================= */
+
+.trocar-tela {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 22px;
+
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+}
+
+.trocar-tela button {
+  color: var(--texto);
+  background: transparent;
+  border: 0;
+
+  font-weight: 700;
+}
+
+.trocar-tela button:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.mensagem {
+  margin-top: 14px;
+  padding: 0;
+
+  font-size: 0.88rem;
+
+  border-radius: 7px;
+}
+
+.mensagem:not(:empty) {
+  padding: 10px 12px;
+}
+
+.mensagem.sucesso {
+  color: var(--sucesso);
+  background: var(--sucesso-fundo);
+  border: 1px solid #cfe7d5;
+}
+
+.mensagem.erro-geral {
+  color: var(--perigo);
+  background: var(--perigo-fundo);
+  border: 1px solid #edcccc;
+}
+
+
+/* =========================================================
+   APLICAÇÃO
+   ========================================================= */
+
+.aplicacao {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.painel-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 20px 22px;
+
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.painel-topo h2 {
+  font-size: 1.25rem;
+}
+
+.painel-topo p {
+  margin-top: 3px;
+  color: var(--texto-secundario);
+  font-size: 0.9rem;
+}
+
+.painel {
+  width: 100%;
+}
+
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+.menu-painel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-bottom: 20px;
+  padding: 5px;
+
+  overflow-x: auto;
+
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+
+.menu-painel-item {
+  flex-shrink: 0;
+
+  padding: 10px 15px;
+
+  color: var(--texto-secundario);
+  background: transparent;
+
+  border: 0;
+  border-radius: 7px;
+
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  transition:
+    background var(--transicao),
+    color var(--transicao);
+}
+
+.menu-painel-item:hover {
+  color: var(--texto);
+  background: var(--cinza-claro);
+}
+
+.menu-painel-item.ativo {
+  color: #ffffff;
+  background: var(--preto);
+}
+
+
+/* =========================================================
+   CARDS / SEÇÕES
+   ========================================================= */
+
+.card-dashboard {
+  padding: 24px;
+
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.card-dashboard > h3 {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+.titulo-dashboard {
+  margin-bottom: 20px;
+}
+
+.titulo-dashboard h3 {
+  font-size: 1.2rem;
+}
+
+.titulo-dashboard p,
+.texto-secundario {
+  margin-top: 5px;
+  color: var(--texto-secundario);
+}
+
+.texto-secundario {
+  margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   RESUMOS
+   ========================================================= */
+
+.resumo-conta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-top: 20px;
+}
+
+.resumo-item {
+  padding: 18px;
+
+  background: var(--superficie-secundaria);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.resumo-item span {
+  display: block;
+  margin-bottom: 7px;
+
+  color: var(--texto-secundario);
+  font-size: 0.84rem;
+}
+
+.resumo-item strong {
+  font-size: 1.3rem;
+}
+
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+.separador {
+  height: 1px;
+  margin: 26px 0;
+
+  background: var(--borda);
+}
+
+
+/* =========================================================
+   RESULTADO DE ANÁLISE
+   ========================================================= */
+
+.resultado-analise {
+  margin-top: 24px;
+  padding: 20px;
+
+  background: var(--superficie-secundaria);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.resultado-analise > h4 {
+  margin-bottom: 16px;
+}
+
+.resultado-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.resultado-item {
+  padding: 15px;
+
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+}
+
+.resultado-item span {
+  display: block;
+  margin-bottom: 5px;
+
+  color: var(--texto-secundario);
+  font-size: 0.82rem;
+}
+
+.resultado-item strong {
+  font-size: 1.05rem;
+}
+
+.motivos-risco {
+  margin-top: 20px;
+}
+
+.motivos-risco h4 {
+  margin-bottom: 9px;
+}
+
+.motivos-risco ul {
+  padding-left: 20px;
+}
+
+.motivos-risco li {
+  margin: 5px 0;
+  color: var(--texto-secundario);
+}
+
+
+/* =========================================================
+   NÍVEIS DE RISCO
+   ========================================================= */
+
+.risco-baixo {
+  color: var(--sucesso) !important;
+}
+
+.risco-medio {
+  color: var(--alerta) !important;
+}
+
+.risco-alto {
+  color: #bf5c18 !important;
+}
+
+.risco-critico {
+  color: var(--perigo) !important;
+}
+
+.risco-texto {
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.filtros-transacoes {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, minmax(130px, 1fr));
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.campo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-filtro-busca {
+  min-width: 220px;
+}
+
+
+/* =========================================================
+   TABELAS
+   ========================================================= */
+
+.tabela-container {
+  width: 100%;
+  overflow-x: auto;
+
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 850px;
+
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+thead {
+  background: var(--superficie-secundaria);
+}
+
+th,
+td {
+  padding: 12px 13px;
+
+  text-align: left;
+  white-space: nowrap;
+
+  border-bottom: 1px solid var(--borda);
+}
+
+th {
+  color: var(--texto-secundario);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+td {
+  font-size: 0.87rem;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+tbody tr:hover {
+  background: #fafafa;
+}
+
+.texto-vazio {
+  margin-top: 18px;
+
+  color: var(--texto-secundario);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge-origem {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+
+  border-radius: 20px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge-web {
+  color: #505050;
+  background: #eeeeee;
+}
+
+.badge-api {
+  color: var(--info);
+  background: var(--info-fundo);
+}
+
+.status-ativa,
+.status-inativa {
+  display: inline-flex;
+  padding: 4px 8px;
+
+  border-radius: 20px;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.status-ativa {
+  color: var(--sucesso);
+  background: var(--sucesso-fundo);
+}
+
+.status-inativa {
+  color: var(--perigo);
+  background: var(--perigo-fundo);
+}
+
+
+/* =========================================================
+   BOTÕES DE TABELA
+   ========================================================= */
+
+.acoes-transacao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.botao-detalhes,
+.botao-aprovar,
+.botao-bloquear,
+.botao-remover,
+.botao-ativar,
+.botao-desativar {
+  padding: 6px 10px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--borda-forte);
+  border-radius: 6px;
+
+  font-size: 0.78rem;
+  font-weight: 600;
+
+  transition:
+    background var(--transicao),
+    border-color var(--transicao);
+}
+
+.botao-detalhes:hover {
+  background: var(--cinza-claro);
+}
+
+.botao-aprovar,
+.botao-ativar {
+  color: var(--sucesso);
+  border-color: #b8d8c1;
+}
+
+.botao-aprovar:hover,
+.botao-ativar:hover {
+  background: var(--sucesso-fundo);
+}
+
+.botao-bloquear,
+.botao-remover,
+.botao-desativar {
+  color: var(--perigo);
+  border-color: #e0bbbb;
+}
+
+.botao-bloquear:hover,
+.botao-remover:hover,
+.botao-desativar:hover {
+  background: var(--perigo-fundo);
+}
+
+.texto-revisado {
+  color: var(--texto-secundario);
+  font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+   ========================================================= */
+
+.estatistica-secao {
+  margin-top: 28px;
+}
+
+.estatistica-secao:first-of-type {
+  margin-top: 22px;
+}
+
+.estatistica-secao h4 {
+  margin-bottom: 12px;
+}
+
+.estatisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.estatistica-card {
+  min-height: 95px;
+  padding: 16px;
+
+  background: var(--superficie-secundaria);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.estatistica-card span {
+  display: block;
+  margin-bottom: 8px;
+
+  color: var(--texto-secundario);
+  font-size: 0.82rem;
+}
+
+.estatistica-card strong {
+  font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   DADOS DA CONTA
+   ========================================================= */
+
+.dados-conta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.dado-conta {
+  padding: 16px;
+
+  background: var(--superficie-secundaria);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.dado-conta span {
+  display: block;
+  margin-bottom: 5px;
+
+  color: var(--texto-secundario);
+  font-size: 0.82rem;
+}
+
+.dado-conta strong {
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+body.modal-aberto {
+  overflow: hidden;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.modal-card {
+  width: min(760px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+.modal-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+
+  padding: 20px 22px;
+
+  border-bottom: 1px solid var(--borda);
+}
+
+.modal-cabecalho h3 {
+  font-size: 1.2rem;
+}
+
+.modal-cabecalho p {
+  margin-top: 4px;
+
+  color: var(--texto-secundario);
+  font-size: 0.85rem;
+}
+
+.botao-fechar-modal {
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  color: var(--texto-secundario);
+  background: transparent;
+
+  border: 0;
+  border-radius: 6px;
+
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.botao-fechar-modal:hover {
+  color: var(--texto);
+  background: var(--cinza-claro);
+}
+
+.modal-conteudo {
+  padding: 22px;
+}
+
+
+/* =========================================================
+   DETALHES DA TRANSAÇÃO
+   ========================================================= */
+
+.detalhe-secao {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid var(--borda);
+}
+
+.detalhe-secao:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.detalhe-secao h4 {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.detalhes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detalhe-item {
+  padding: 12px;
+
+  background: var(--superficie-secundaria);
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+}
+
+.detalhe-item span {
+  display: block;
+  margin-bottom: 3px;
+
+  color: var(--texto-secundario);
+  font-size: 0.77rem;
+}
+
+.detalhe-item strong {
+  display: block;
+  word-break: break-word;
+
+  font-size: 0.9rem;
+}
+
+.lista-motivos-detalhes {
+  padding-left: 20px;
+}
+
+.lista-motivos-detalhes li {
+  margin: 6px 0;
+  color: var(--texto-secundario);
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .resumo-conta {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .estatisticas-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .filtros-transacoes {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .campo-filtro-busca {
+    grid-column: 1 / -1;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .container {
+    width: min(
+      100% - 20px,
+      1200px
+    );
+
+    margin: 20px auto;
+  }
+
+  .marca {
+    width: calc(100% - 20px);
+    padding: 18px 0;
+  }
+
+  .marca h1 {
+    font-size: 1.25rem;
+  }
+
+  .marca p {
+    font-size: 0.82rem;
+  }
+
+
+  .auth-card,
+  .card-dashboard {
+    padding: 20px;
+  }
+
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campo-largo,
+  .form-botao-largo {
+    grid-column: auto;
+  }
+
+
+  .painel-topo {
+    align-items: flex-start;
+  }
+
+
+  .resumo-conta {
+    grid-template-columns: 1fr;
+  }
+
+
+  .resultado-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .estatisticas-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .dados-conta {
+    grid-template-columns: 1fr;
+  }
+
+
+  .filtros-transacoes {
+    grid-template-columns: 1fr;
+  }
+
+  .campo-filtro-busca {
+    grid-column: auto;
+  }
+
+
+  .detalhes-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  body {
+    font-size: 14px;
+  }
+
+
+  .auth-card {
+    margin: 20px auto;
+  }
+
+
+  .painel-topo {
+    flex-direction: column;
+  }
+
+  .botao-sair {
+    width: 100%;
+  }
+
+
+  .estatisticas-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .trocar-tela {
+    flex-direction: column;
+  }
+
+
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-cabecalho,
+  .modal-conteudo {
+    padding: 16px;
+  }
+
+}

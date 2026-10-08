@@ -1,0 +1,170 @@
+<section
+  id="lojista_transacoes"
+  class="secao-painel oculto"
+>
+
+  <div class="card-dashboard">
+
+    <h3>
+      Minhas transações
+    </h3>
+
+    <p class="texto-secundario">
+      Consulte e filtre as transações enviadas para análise.
+    </p>
+
+
+    <!-- FILTROS -->
+
+    <div class="filtros-transacoes">
+
+      <div class="campo-filtro campo-filtro-busca">
+
+        <label for="filtro_lojista_busca">
+          Buscar
+        </label>
+
+        <input
+          type="text"
+          id="filtro_lojista_busca"
+          placeholder="Pedido, nome, documento, e-mail ou ID"
+        >
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_lojista_risco">
+          Risco
+        </label>
+
+        <select id="filtro_lojista_risco">
+
+          <option value="">
+            Todos
+          </option>
+
+          <option value="BAIXO">
+            Baixo
+          </option>
+
+          <option value="MÉDIO">
+            Médio
+          </option>
+
+          <option value="ALTO">
+            Alto
+          </option>
+
+          <option value="CRÍTICO">
+            Crítico
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_lojista_status">
+          Status
+        </label>
+
+        <select id="filtro_lojista_status">
+
+          <option value="">
+            Todos
+          </option>
+
+          <option value="APROVADA">
+            Aprovada
+          </option>
+
+          <option value="APROVADA COM ALERTA">
+            Com alerta
+          </option>
+
+          <option value="EM ANÁLISE">
+            Em análise
+          </option>
+
+          <option value="BLOQUEADA">
+            Bloqueada
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_lojista_origem">
+          Origem
+        </label>
+
+        <select id="filtro_lojista_origem">
+
+          <option value="">
+            Todas
+          </option>
+
+          <option value="WEB">
+            WEB
+          </option>
+
+          <option value="API">
+            API
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABELA -->
+
+    <div class="tabela-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Pedido</th>
+            <th>Data</th>
+            <th>Comprador</th>
+            <th>Documento</th>
+            <th>Valor</th>
+            <th>Pagamento</th>
+            <th>Risco</th>
+            <th>Status</th>
+            <th>Origem</th>
+            <th>Ação</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody id="lista_transacoes"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <p
+      id="nenhuma_transacao"
+      class="texto-vazio"
+    >
+      Nenhuma transação encontrada.
+    </p>
+
+  </div>
+
+</section>

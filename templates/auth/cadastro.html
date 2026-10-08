@@ -1,0 +1,216 @@
+<section
+  id="tela_cadastro"
+  class="auth-card cadastro-card oculto"
+>
+
+  <div class="auth-cabecalho">
+
+    <h2>
+      Criar conta
+    </h2>
+
+    <p>
+      Cadastre sua empresa ou conta de lojista.
+    </p>
+
+  </div>
+
+
+  <form
+    id="form_cadastro"
+    class="form-grid"
+  >
+
+    <div class="campo campo-largo">
+
+      <label for="cadastro_nome">
+        Nome ou responsável
+      </label>
+
+      <input
+        type="text"
+        id="cadastro_nome"
+        maxlength="120"
+        autocomplete="name"
+        placeholder="Digite o nome ou responsável"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_nome"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="cadastro_tipo_pessoa">
+        Tipo de pessoa
+      </label>
+
+      <select id="cadastro_tipo_pessoa">
+
+        <option value="PF">
+          Pessoa Física
+        </option>
+
+        <option value="PJ">
+          Pessoa Jurídica
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label
+        for="cadastro_documento"
+        id="label_cadastro_documento"
+      >
+        CPF
+      </label>
+
+      <input
+        type="text"
+        id="cadastro_documento"
+        maxlength="18"
+        inputmode="numeric"
+        placeholder="Digite seu CPF"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_documento"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="cadastro_email">
+        E-mail
+      </label>
+
+      <input
+        type="email"
+        id="cadastro_email"
+        maxlength="254"
+        autocomplete="email"
+        placeholder="Digite seu e-mail"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_email"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="cadastro_telefone">
+        Telefone
+      </label>
+
+      <input
+        type="text"
+        id="cadastro_telefone"
+        maxlength="20"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder="Digite seu telefone"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_telefone"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="cadastro_senha">
+        Senha
+      </label>
+
+      <input
+        type="password"
+        id="cadastro_senha"
+        minlength="8"
+        autocomplete="new-password"
+        placeholder="Crie uma senha"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_senha"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="cadastro_confirmar_senha">
+        Confirmar senha
+      </label>
+
+      <input
+        type="password"
+        id="cadastro_confirmar_senha"
+        minlength="8"
+        autocomplete="new-password"
+        placeholder="Digite a senha novamente"
+      >
+
+      <span
+        class="erro"
+        id="erro_cadastro_confirmar_senha"
+      ></span>
+
+    </div>
+
+
+    <div class="form-botao-largo">
+
+      <button
+        type="submit"
+        class="botao-principal"
+      >
+        Criar conta
+      </button>
+
+    </div>
+
+  </form>
+
+
+  <p
+    id="mensagem_cadastro"
+    class="mensagem"
+  ></p>
+
+
+  <div class="trocar-tela">
+
+    <span>
+      Já possui uma conta?
+    </span>
+
+    <button
+      type="button"
+      id="abrir_login"
+    >
+      Entrar
+    </button>
+
+  </div>
+
+</section>

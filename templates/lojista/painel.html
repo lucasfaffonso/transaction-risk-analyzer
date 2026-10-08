@@ -1,0 +1,64 @@
+<section
+  id="painel_lojista"
+  class="painel oculto"
+>
+
+  <nav
+    class="menu-painel"
+    aria-label="Menu do lojista"
+  >
+
+    <button
+      type="button"
+      class="menu-painel-item ativo"
+      data-secao-lojista="lojista_inicio"
+    >
+      Início
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-lojista="lojista_analisar"
+    >
+      Analisar transação
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-lojista="lojista_transacoes"
+    >
+      Minhas transações
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-lojista="lojista_estatisticas"
+    >
+      Estatísticas
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-lojista="lojista_conta"
+    >
+      Minha conta
+    </button>
+
+  </nav>
+
+
+  {% include "lojista/inicio.html" %}
+
+  {% include "lojista/analisar.html" %}
+
+  {% include "lojista/transacoes.html" %}
+
+  {% include "lojista/estatisticas.html" %}
+
+  {% include "lojista/conta.html" %}
+
+</section>

@@ -1,0 +1,178 @@
+<section
+  id="admin_transacoes"
+  class="secao-admin oculto"
+>
+
+  <div class="card-dashboard">
+
+    <h3>
+      Transações
+    </h3>
+
+    <p class="texto-secundario">
+      Visualize, filtre e revise todas as transações analisadas pelo sistema.
+    </p>
+
+
+    <!-- FILTROS -->
+
+    <div class="filtros-transacoes">
+
+      <div class="campo-filtro campo-filtro-busca">
+
+        <label for="filtro_admin_busca">
+          Buscar
+        </label>
+
+        <input
+          type="text"
+          id="filtro_admin_busca"
+          placeholder="Pedido, ID, lojista, comprador ou documento"
+        >
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_admin_risco">
+          Risco
+        </label>
+
+        <select id="filtro_admin_risco">
+
+          <option value="">
+            Todos
+          </option>
+
+          <option value="BAIXO">
+            Baixo
+          </option>
+
+          <option value="MÉDIO">
+            Médio
+          </option>
+
+          <option value="ALTO">
+            Alto
+          </option>
+
+          <option value="CRÍTICO">
+            Crítico
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_admin_status">
+          Status
+        </label>
+
+        <select id="filtro_admin_status">
+
+          <option value="">
+            Todos
+          </option>
+
+          <option value="APROVADA">
+            Aprovada
+          </option>
+
+          <option value="APROVADA COM ALERTA">
+            Com alerta
+          </option>
+
+          <option value="EM ANÁLISE">
+            Em análise
+          </option>
+
+          <option value="BLOQUEADA">
+            Bloqueada
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo-filtro">
+
+        <label for="filtro_admin_origem">
+          Origem
+        </label>
+
+        <select id="filtro_admin_origem">
+
+          <option value="">
+            Todas
+          </option>
+
+          <option value="WEB">
+            WEB
+          </option>
+
+          <option value="API">
+            API
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABELA -->
+
+    <div class="tabela-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Pedido</th>
+            <th>Data</th>
+            <th>Lojista</th>
+            <th>Comprador</th>
+            <th>Documento</th>
+            <th>Valor</th>
+            <th>Pagamento</th>
+            <th>Origem</th>
+            <th>Score</th>
+            <th>Risco</th>
+            <th>Status</th>
+            <th>Ação</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody id="admin_lista_transacoes"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <p
+      id="admin_nenhuma_transacao"
+      class="texto-vazio"
+    >
+      Nenhuma transação encontrada.
+    </p>
+
+
+    <p
+      id="mensagem_revisao"
+      class="mensagem"
+    ></p>
+
+  </div>
+
+</section>

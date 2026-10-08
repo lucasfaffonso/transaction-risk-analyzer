@@ -1,0 +1,64 @@
+<section
+  id="painel_admin"
+  class="painel oculto"
+>
+
+  <nav
+    class="menu-painel"
+    aria-label="Menu do administrador"
+  >
+
+    <button
+      type="button"
+      class="menu-painel-item ativo"
+      data-secao-admin="admin_inicio"
+    >
+      Início
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-admin="admin_usuarios"
+    >
+      Usuários
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-admin="admin_transacoes"
+    >
+      Transações
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-admin="admin_risco"
+    >
+      Lista de risco
+    </button>
+
+    <button
+      type="button"
+      class="menu-painel-item"
+      data-secao-admin="admin_estatisticas"
+    >
+      Estatísticas
+    </button>
+
+  </nav>
+
+
+  {% include "admin/inicio.html" %}
+
+  {% include "admin/usuarios.html" %}
+
+  {% include "admin/transacoes.html" %}
+
+  {% include "admin/risco.html" %}
+
+  {% include "admin/estatisticas.html" %}
+
+</section>

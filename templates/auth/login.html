@@ -1,0 +1,91 @@
+<section
+  id="tela_login"
+  class="auth-card"
+>
+
+  <div class="auth-cabecalho">
+    <h2>Entrar</h2>
+
+    <p>
+      Acesse sua conta para continuar.
+    </p>
+  </div>
+
+
+  <form id="form_login">
+
+    <div class="campo">
+
+      <label for="login_email">
+        E-mail
+      </label>
+
+      <input
+        type="email"
+        id="login_email"
+        maxlength="254"
+        autocomplete="email"
+        placeholder="Digite seu e-mail"
+      >
+
+      <span
+        class="erro"
+        id="erro_login_email"
+      ></span>
+
+    </div>
+
+
+    <div class="campo">
+
+      <label for="login_senha">
+        Senha
+      </label>
+
+      <input
+        type="password"
+        id="login_senha"
+        autocomplete="current-password"
+        placeholder="Digite sua senha"
+      >
+
+      <span
+        class="erro"
+        id="erro_login_senha"
+      ></span>
+
+    </div>
+
+
+    <button
+      type="submit"
+      class="botao-principal"
+    >
+      Entrar
+    </button>
+
+  </form>
+
+
+  <p
+    id="mensagem_login"
+    class="mensagem"
+  ></p>
+
+
+  <div class="trocar-tela">
+
+    <span>
+      Ainda não possui uma conta?
+    </span>
+
+    <button
+      type="button"
+      id="abrir_cadastro"
+    >
+      Criar conta
+    </button>
+
+  </div>
+
+</section>

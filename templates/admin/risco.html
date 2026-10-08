@@ -1,0 +1,177 @@
+<section
+  id="admin_risco"
+  class="secao-admin oculto"
+>
+
+  <div class="card-dashboard">
+
+    <h3>
+      Lista de risco
+    </h3>
+
+    <p class="texto-secundario">
+      Cadastre compradores ou documentos que devem receber
+      pontuação adicional na análise antifraude.
+    </p>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form
+      id="form_lista_risco"
+      class="form-grid"
+    >
+
+      <div class="campo campo-largo">
+
+        <label for="risco_nome">
+          Nome
+        </label>
+
+        <input
+          type="text"
+          id="risco_nome"
+          maxlength="120"
+          placeholder="Nome do comprador"
+        >
+
+        <span
+          class="erro"
+          id="erro_risco_nome"
+        ></span>
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="risco_tipo_pessoa">
+          Tipo de pessoa
+        </label>
+
+        <select id="risco_tipo_pessoa">
+
+          <option value="PF">
+            Pessoa Física
+          </option>
+
+          <option value="PJ">
+            Pessoa Jurídica
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="campo">
+
+        <label
+          for="risco_documento"
+          id="label_risco_documento"
+        >
+          CPF
+        </label>
+
+        <input
+          type="text"
+          id="risco_documento"
+          maxlength="18"
+          inputmode="numeric"
+          placeholder="Digite o CPF"
+        >
+
+        <span
+          class="erro"
+          id="erro_risco_documento"
+        ></span>
+
+      </div>
+
+
+      <div class="campo campo-largo">
+
+        <label for="risco_motivo">
+          Motivo
+        </label>
+
+        <input
+          type="text"
+          id="risco_motivo"
+          maxlength="500"
+          placeholder="Ex: histórico de transações fraudulentas"
+        >
+
+        <span
+          class="erro"
+          id="erro_risco_motivo"
+        ></span>
+
+      </div>
+
+
+      <div class="form-botao-largo">
+
+        <button
+          type="submit"
+          class="botao-principal"
+        >
+          Adicionar à lista
+        </button>
+
+      </div>
+
+    </form>
+
+
+    <p
+      id="mensagem_lista_risco"
+      class="mensagem"
+    ></p>
+
+
+    <div class="separador"></div>
+
+
+    <!-- DOCUMENTOS CADASTRADOS -->
+
+    <h3>
+      Documentos cadastrados
+    </h3>
+
+
+    <div class="tabela-container">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Documento</th>
+            <th>Motivo</th>
+            <th>Adicionado em</th>
+            <th>Ação</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody id="lista_risco_tabela"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <p
+      id="lista_risco_vazia"
+      class="texto-vazio"
+    >
+      Nenhum documento cadastrado na lista de risco.
+    </p>
+
+  </div>
+
+</section>
