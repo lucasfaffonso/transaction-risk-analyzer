@@ -59,6 +59,10 @@ const botaoAbrirLogin = $("abrir_login");
 const botaoSair = $("botao_sair");
 
 
+// Sessão
+const CHAVE_TOKEN_SESSAO = "transaction_risk_token_sessao";
+
+
 // =========================================================
 // CALLBACKS
 // =========================================================
@@ -150,6 +154,51 @@ function localizarCampoCadastro(nomeCampo) {
   };
 
   return campos[nomeCampo] || $(nomeCampo);
+}
+
+
+function salvarTokenSessao(token) {
+  if (
+    typeof token !== "string" ||
+    !token
+  ) {
+    return;
+  }
+
+  sessionStorage.setItem(
+    CHAVE_TOKEN_SESSAO,
+    token
+  );
+}
+
+
+function obterTokenSessao() {
+  return sessionStorage.getItem(
+    CHAVE_TOKEN_SESSAO
+  );
+}
+
+
+function removerTokenSessao() {
+  sessionStorage.removeItem(
+    CHAVE_TOKEN_SESSAO
+  );
+}
+
+
+function tentarRestaurarSessao() {
+  const tokenSessao = obterTokenSessao();
+
+  if (!tokenSessao) {
+    return;
+  }
+
+  socket.emit(
+    "restaurar_sessao",
+    {
+      token_sessao: tokenSessao
+    }
+  );
 }
 
 
@@ -299,7 +348,12 @@ function verificarEmailCadastro() {
 // =========================================================
 
 function solicitarLogout() {
-  socket.emit("logout");
+  socket.emit(
+    "logout",
+    {
+      token_sessao: obterTokenSessao()
+    }
+  );
 }
 
 
@@ -452,6 +506,12 @@ function registrarEventosNavegacao() {
 
 function registrarEventosSocket() {
   socket.on(
+    "connect",
+    tentarRestaurarSessao
+  );
+
+
+  socket.on(
     "resultado_verificacao_cadastro",
     (resultado) => {
       if (!resultado) {
@@ -510,6 +570,10 @@ function registrarEventosSocket() {
 
       restaurarFormularioCadastro();
 
+      salvarTokenSessao(
+        resultado.token_sessao
+      );
+
       if (typeof aoAutenticar === "function") {
         aoAutenticar(
           resultado.usuario
@@ -543,6 +607,37 @@ function registrarEventosSocket() {
       formLogin.reset();
       limparErrosLogin();
 
+      salvarTokenSessao(
+        resultado.token_sessao
+      );
+
+      if (typeof aoAutenticar === "function") {
+        aoAutenticar(
+          resultado.usuario
+        );
+      }
+    }
+  );
+
+
+  socket.on(
+    "resultado_restaurar_sessao",
+    (resultado) => {
+      if (
+        !resultado ||
+        !resultado.sucesso
+      ) {
+        removerTokenSessao();
+
+        if (typeof aoSair === "function") {
+          aoSair();
+        }
+
+        mostrarLogin();
+
+        return;
+      }
+
       if (typeof aoAutenticar === "function") {
         aoAutenticar(
           resultado.usuario
@@ -561,6 +656,8 @@ function registrarEventosSocket() {
       ) {
         return;
       }
+
+      removerTokenSessao();
 
       restaurarFormularioCadastro();
 
@@ -596,6 +693,16 @@ export function inicializarAutenticacao({
   registrarEventosCadastro();
   registrarEventosNavegacao();
   registrarEventosSocket();
+
+  const tokenSessao = obterTokenSessao();
+
+  if (tokenSessao) {
+    if (socket.connected) {
+      tentarRestaurarSessao();
+    }
+  } else {
+    mostrarLogin();
+  }
 
   atualizarCampoDocumento(
     cadastroTipoPessoa.value,

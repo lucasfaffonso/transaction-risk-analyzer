@@ -234,7 +234,7 @@ export function abrirDetalhesTransacao(
     "Compra",
     [
       [
-        "ID do pedido",
+        "ID da transação",
         transacao.pedido_id || "-"
       ],
       [

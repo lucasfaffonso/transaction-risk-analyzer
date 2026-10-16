@@ -163,14 +163,14 @@ def mostrar_resultado_transacao(transacao):
 def analisar_transacao(token):
     print("\n=== ANALISAR TRANSAÇÃO ===")
 
-    pedido_id = input("ID do pedido: ").strip()
+    pedido_id = input("ID da transação: ").strip()
 
     if not pedido_id:
-        print("O ID do pedido é obrigatório.")
+        print("O ID da transação é obrigatório.")
         return True
 
     if len(pedido_id) > 80:
-        print("O ID do pedido deve ter no máximo 80 caracteres.")
+        print("O ID da transação deve ter no máximo 80 caracteres.")
         return True
 
     nome = input("Nome do comprador: ").strip()
@@ -222,7 +222,7 @@ def analisar_transacao(token):
 
     if dados.get("duplicada"):
         print(
-            "\nEste pedido já foi analisado. " "O resultado anterior foi reutilizado."
+            "\nEsta transação já foi analisada. " "O resultado anterior foi reutilizado."
         )
     else:
         print("\nTransação analisada com sucesso.")

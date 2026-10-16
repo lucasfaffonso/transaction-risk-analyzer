@@ -10,20 +10,20 @@
     </h3>
 
     <p class="texto-secundario">
-      Informe primeiro o ID do pedido para verificar se ele já foi analisado.
+      Informe primeiro o ID da transação para verificar se ela já foi analisada.
     </p>
 
 
     <form id="form_transacao">
 
-      <!-- ETAPA 1: ID DO PEDIDO -->
+      <!-- ETAPA 1: ID DA TRANSAÇÃO -->
 
       <div class="form-grid">
 
         <div class="campo campo-largo">
 
           <label for="pedido_id">
-            ID do pedido
+            ID da transação
           </label>
 
           <input
@@ -31,7 +31,7 @@
             id="pedido_id"
             maxlength="80"
             autocomplete="off"
-            placeholder="Ex: PEDIDO-1058"
+            placeholder="Ex: TRX-1058"
           >
 
           <span
@@ -49,7 +49,7 @@
             id="botao_verificar_pedido"
             class="botao-principal"
           >
-            Verificar pedido
+            Verificar transação
           </button>
 
         </div>
@@ -78,7 +78,7 @@
           <div class="campo campo-largo">
 
             <label for="comprador_nome">
-              Nome do comprador
+              Nome do responsável
             </label>
 
             <input
@@ -86,7 +86,7 @@
               id="comprador_nome"
               maxlength="120"
               autocomplete="off"
-              placeholder="Digite o nome do comprador"
+              placeholder="Digite o nome do responsável"
             >
 
             <span
@@ -147,7 +147,7 @@
           <div class="campo">
 
             <label for="comprador_email">
-              E-mail do comprador
+              E-mail do responsável
             </label>
 
             <input
@@ -169,7 +169,7 @@
           <div class="campo">
 
             <label for="transacao_valor">
-              Valor da compra
+              Valor da transação
             </label>
 
             <input

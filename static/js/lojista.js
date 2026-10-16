@@ -202,14 +202,14 @@ function preencherDadosConta(usuario) {
 
 
 // =========================================================
-// ID DO PEDIDO
+// ID da transação
 // =========================================================
 
 function habilitarBotaoVerificacao() {
   botaoVerificarPedido.disabled = false;
 
   botaoVerificarPedido.textContent =
-    "Verificar pedido";
+    "Verificar transação";
 }
 
 
@@ -666,7 +666,7 @@ function enviarTransacao(event) {
 
     mostrarMensagem(
       mensagemVerificacaoPedido,
-      "Verifique o ID do pedido antes de continuar.",
+      "Verifique o ID da transação antes de continuar.",
       false
     );
 
@@ -1069,7 +1069,7 @@ function registrarEventosSocket() {
       if (resultado.duplicada) {
         mostrarMensagem(
           mensagemVerificacaoPedido,
-          "Este pedido já foi analisado. O resultado anterior foi reutilizado.",
+          "Esta transação já foi analisada. O resultado anterior foi reutilizado.",
           true
         );
       } else {

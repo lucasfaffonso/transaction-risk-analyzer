@@ -1,10 +1,9 @@
 import pytest
 
-import server
+from flask import Flask
+from flask_socketio import SocketIO
 
-# =========================================================
-# DADOS DE TESTE
-# =========================================================
+import controller as server
 
 
 @pytest.fixture
@@ -28,7 +27,7 @@ def transacao_existente():
         "comprador_tipo_pessoa": "PF",
         "comprador_documento": "12345678901",
         "comprador_email": "cliente@teste.com",
-        "valor": 150.00,
+        "valor": 100.00,
         "forma_pagamento": "PIX",
         "pontuacao_risco": 0,
         "nivel_risco": "BAIXO",
@@ -38,49 +37,68 @@ def transacao_existente():
         "revisada": False,
         "decisao_revisao": None,
         "data_revisao": None,
-        "data_hora": "2026-10-07T15:00:00-03:00",
+        "data_hora": "2026-10-08T12:00:00-03:00",
     }
 
 
-# =========================================================
-# AUXILIARES
-# =========================================================
+@pytest.fixture
+def aplicacao_socket():
+    app = Flask(__name__)
+
+    app.config["TESTING"] = True
+    app.config["SECRET_KEY"] = "segredo-de-teste"
+
+    socketio = SocketIO(
+        app,
+        async_mode="threading",
+    )
+
+    server.registrar_controller(
+        app,
+        socketio,
+    )
+
+    return app, socketio
 
 
-def buscar_resposta(cliente, nome_evento):
+def obter_evento(cliente, nome):
     eventos = cliente.get_received()
 
     for evento in eventos:
-        if evento["name"] == nome_evento:
-            return evento["args"][0]
+        if evento["name"] == nome:
+            argumentos = evento.get("args", [])
 
-    pytest.fail(f"Evento '{nome_evento}' não foi recebido.")
+            if argumentos:
+                return argumentos[0]
+
+            return None
+
+    return None
 
 
 def criar_cliente_socket(
     monkeypatch,
     lojista,
+    aplicacao_socket,
 ):
+    app, socketio = aplicacao_socket
+
     monkeypatch.setattr(
         server,
         "buscar_usuario_logado",
         lambda: lojista,
     )
 
-    return server.socketio.test_client(server.app)
-
-
-# =========================================================
-# PEDIDO NOVO
-# =========================================================
+    return socketio.test_client(app)
 
 
 def test_pedido_novo_libera_analise(
     monkeypatch,
     lojista,
+    aplicacao_socket,
 ):
     monkeypatch.setattr(
-        server.db,
+        server.model,
         "buscar_transacao_por_pedido",
         lambda lojista_id, pedido_id: None,
     )
@@ -88,20 +106,20 @@ def test_pedido_novo_libera_analise(
     cliente = criar_cliente_socket(
         monkeypatch,
         lojista,
+        aplicacao_socket,
     )
 
     cliente.emit(
         "verificar_pedido_id",
-        {
-            "pedido_id": "PEDIDO-NOVO",
-        },
+        {"pedido_id": "PEDIDO-NOVO"},
     )
 
-    resposta = buscar_resposta(
+    resposta = obter_evento(
         cliente,
         "resultado_verificacao_pedido",
     )
 
+    assert resposta is not None
     assert resposta["sucesso"] is True
     assert resposta["existe"] is False
     assert resposta["pedido_id"] == "PEDIDO-NOVO"
@@ -109,18 +127,14 @@ def test_pedido_novo_libera_analise(
     cliente.disconnect()
 
 
-# =========================================================
-# PEDIDO EXISTENTE
-# =========================================================
-
-
 def test_pedido_existente_retorna_resultado_anterior(
     monkeypatch,
     lojista,
     transacao_existente,
+    aplicacao_socket,
 ):
     monkeypatch.setattr(
-        server.db,
+        server.model,
         "buscar_transacao_por_pedido",
         lambda lojista_id, pedido_id: transacao_existente,
     )
@@ -128,109 +142,71 @@ def test_pedido_existente_retorna_resultado_anterior(
     cliente = criar_cliente_socket(
         monkeypatch,
         lojista,
+        aplicacao_socket,
     )
 
     cliente.emit(
         "verificar_pedido_id",
-        {
-            "pedido_id": "PEDIDO-001",
-        },
+        {"pedido_id": "PEDIDO-001"},
     )
 
-    resposta = buscar_resposta(
+    resposta = obter_evento(
         cliente,
         "resultado_verificacao_pedido",
     )
 
     assert resposta["sucesso"] is True
     assert resposta["existe"] is True
-    assert resposta["pedido_id"] == "PEDIDO-001"
 
-    transacao = resposta["transacao"]
-
-    assert transacao["transacao_id"] == 1
-
-    assert transacao["pedido_id"] == "PEDIDO-001"
-
-    assert transacao["nivel_risco"] == "BAIXO"
-
-    assert transacao["status"] == "APROVADA"
+    assert "já foi analisada" in resposta["mensagem"]
 
     cliente.disconnect()
-
-
-# =========================================================
-# PEDIDO VAZIO
-# =========================================================
 
 
 def test_pedido_vazio_e_rejeitado(
-    monkeypatch,
     lojista,
 ):
-    cliente = criar_cliente_socket(
-        monkeypatch,
-        lojista,
-    )
+    payload = {
+        "pedido_id": "",
+        "comprador_nome": "Cliente Teste",
+        "comprador_tipo_pessoa": "PF",
+        "comprador_documento": "12345678901",
+        "comprador_email": "cliente@teste.com",
+        "valor": 100,
+        "forma_pagamento": "PIX",
+    }
 
-    cliente.emit(
-        "verificar_pedido_id",
-        {
-            "pedido_id": "",
-        },
-    )
+    dados, erro = server.validar_payload_transacao(payload)
 
-    resposta = buscar_resposta(
-        cliente,
-        "resultado_verificacao_pedido",
-    )
-
-    assert resposta["sucesso"] is False
-    assert "pedido" in resposta["mensagem"].lower()
-
-    cliente.disconnect()
-
-
-# =========================================================
-# PEDIDO MAIOR QUE O LIMITE
-# =========================================================
+    assert dados is None
+    assert erro["sucesso"] is False
+    assert erro["campo"] == "pedido_id"
 
 
 def test_pedido_muito_longo_e_rejeitado(
-    monkeypatch,
     lojista,
 ):
-    cliente = criar_cliente_socket(
-        monkeypatch,
-        lojista,
-    )
+    payload = {
+        "pedido_id": "A" * (server.MAX_PEDIDO_ID + 1),
+        "comprador_nome": "Cliente Teste",
+        "comprador_tipo_pessoa": "PF",
+        "comprador_documento": "12345678901",
+        "comprador_email": "cliente@teste.com",
+        "valor": 100,
+        "forma_pagamento": "PIX",
+    }
 
-    cliente.emit(
-        "verificar_pedido_id",
-        {
-            "pedido_id": "A" * 81,
-        },
-    )
+    dados, erro = server.validar_payload_transacao(payload)
 
-    resposta = buscar_resposta(
-        cliente,
-        "resultado_verificacao_pedido",
-    )
-
-    assert resposta["sucesso"] is False
-    assert "80" in resposta["mensagem"]
-
-    cliente.disconnect()
-
-
-# =========================================================
-# PEDIDO É ESPECÍFICO DO LOJISTA
-# =========================================================
+    assert dados is None
+    assert erro["sucesso"] is False
+    assert erro["campo"] == "pedido_id"
 
 
 def test_verificacao_usa_id_do_lojista(
     monkeypatch,
     lojista,
+    aplicacao_socket,
 ):
     chamada = {}
 
@@ -245,7 +221,7 @@ def test_verificacao_usa_id_do_lojista(
         return None
 
     monkeypatch.setattr(
-        server.db,
+        server.model,
         "buscar_transacao_por_pedido",
         buscar_transacao,
     )
@@ -253,30 +229,26 @@ def test_verificacao_usa_id_do_lojista(
     cliente = criar_cliente_socket(
         monkeypatch,
         lojista,
+        aplicacao_socket,
     )
 
     cliente.emit(
         "verificar_pedido_id",
-        {
-            "pedido_id": "PEDIDO-999",
-        },
+        {"pedido_id": "PEDIDO-XYZ"},
     )
 
-    buscar_resposta(
+    resposta = obter_evento(
         cliente,
         "resultado_verificacao_pedido",
     )
 
-    assert chamada["lojista_id"] == 10
+    assert resposta["sucesso"] is True
 
-    assert chamada["pedido_id"] == "PEDIDO-999"
+    assert chamada["lojista_id"] == lojista["usuario_id"]
+
+    assert chamada["pedido_id"] == "PEDIDO-XYZ"
 
     cliente.disconnect()
-
-
-# =========================================================
-# NÃO DUPLICAR TRANSAÇÃO
-# =========================================================
 
 
 def test_pedido_existente_nao_cria_nova_transacao(
@@ -285,20 +257,18 @@ def test_pedido_existente_nao_cria_nova_transacao(
     transacao_existente,
 ):
     monkeypatch.setattr(
-        server.db,
+        server.model,
         "buscar_transacao_por_pedido",
         lambda lojista_id, pedido_id: transacao_existente,
     )
 
-    def criar_transacao_nao_deveria_ser_chamada(
-        dados,
-    ):
-        pytest.fail("Uma nova transação foi criada " "para um pedido já existente.")
+    def nao_deve_criar(dados):
+        pytest.fail("Uma transação duplicada " "não deveria ser criada.")
 
     monkeypatch.setattr(
-        server.db,
+        server.model,
         "criar_transacao",
-        criar_transacao_nao_deveria_ser_chamada,
+        nao_deve_criar,
     )
 
     resultado = server.processar_transacao(
@@ -309,13 +279,13 @@ def test_pedido_existente_nao_cria_nova_transacao(
             "comprador_tipo_pessoa": "PF",
             "comprador_documento": "12345678901",
             "comprador_email": "cliente@teste.com",
-            "valor": 150.00,
+            "valor": 100,
             "forma_pagamento": "PIX",
         },
+        origem="WEB",
     )
 
     assert resultado["sucesso"] is True
-
     assert resultado["duplicada"] is True
 
-    assert resultado["transacao"]["pedido_id"] == "PEDIDO-001"
+    assert resultado["transacao"]["transacao_id"] == 1

@@ -254,7 +254,7 @@ export function validarConfirmacaoSenha(
 
 
 // =========================================================
-// ID DO PEDIDO
+// ID da transação
 // =========================================================
 
 export function validarPedidoId(campo) {
@@ -266,7 +266,7 @@ export function validarPedidoId(campo) {
   if (!pedidoId) {
     return mostrarErro(
       campo,
-      "Informe o ID do pedido."
+      "Informe o ID da transação."
     );
   }
 
@@ -276,7 +276,7 @@ export function validarPedidoId(campo) {
   ) {
     return mostrarErro(
       campo,
-      `O ID do pedido deve ter no máximo ${MAX_PEDIDO_ID} caracteres.`
+      `O ID da transação deve ter no máximo ${MAX_PEDIDO_ID} caracteres.`
     );
   }
 
